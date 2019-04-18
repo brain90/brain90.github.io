@@ -1,0 +1,210 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+
+<body>
+    <div id="grafikPie" style="min-width: 300px; height: 200px; margin: 0 auto"></div>
+    <div id="grafik" style="min-width: 1200px; height: 500px; margin: 0 auto"></div>
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        var today = dd + '/' + mm + '/' + yyyy;
+        var jam = new Date().toTimeString().slice(0, 8);
+        var jokowi_amin = [];
+        var prabowo_sandi = [];
+
+        $(function () {
+            var options = {
+                credits: false,
+                chart: {
+                    type: 'column'
+                    //type: 'bar'
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Jumlah Suara'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Prabowo Sandi',
+                    data: prabowo_sandi,
+                    color: '#53A976',
+                    pointWidth: 15
+
+                }, {
+                    name: 'Jokowi Amin',
+                    data: jokowi_amin,
+                    color: '#21313E',
+                    pointWidth: 15
+
+                }]
+            };
+
+            var propinsi = {
+                "1": "ACEH",
+                "6728": "SUMATERA UTARA",
+                "12920": "SUMATERA BARAT",
+                "14086": "RIAU",
+                "15885": "JAMBI",
+                "17404": "SUMATERA SELATAN",
+                "20802": "BENGKULU",
+                "22328": "LAMPUNG",
+                "24993": "KEPULAUAN BANGKA BELITUNG",
+                "25405": "KEPULAUAN RIAU",
+                "25823": "DKI JAKARTA",
+                "26141": "JAWA BARAT",
+                "32676": "JAWA TENGAH",
+                "41863": "DAERAH ISTIMEWA YOGYAKARTA",
+                "42385": "JAWA TIMUR",
+                "51578": "BANTEN",
+                "53241": "BALI",
+                "54020": "NUSA TENGGARA BARAT",
+                "55065": "NUSA TENGGARA TIMUR",
+                "58285": "KALIMANTAN BARAT",
+                "60371": "KALIMANTAN TENGAH",
+                "61965": "KALIMANTAN SELATAN",
+                "64111": "KALIMANTAN TIMUR",
+                "65702": "SULAWESI UTARA",
+                "67393": "SULAWESI TENGAH",
+                "69268": "SULAWESI SELATAN",
+                "72551": "SULAWESI TENGGARA",
+                "74716": "GORONTALO",
+                "75425": "SULAWESI BARAT",
+                "76096": "MALUKU",
+                "77085": "MALUKU UTARA",
+                "78203": "PAPUA",
+                "81877": "PAPUA BARAT",
+                "928068": "KALIMANTAN UTARA"
+            };
+
+            var total_jokowi_amin = 0;
+            var total_prabowo_sandi = 0;
+
+            $.ajax({
+                url: 'https://kawal-c1.appspot.com/api/c/0?' + new Date().getTime(),
+                'async': false,
+                success: function (res) {
+                    var res = JSON.stringify(res);
+                    var respon = JSON.parse(res);
+                    var paslonOnly = [];
+                    for (var item in respon.data) {
+                        var key = eval(item);
+                        var pas1 = respon.data[item].sum.pas1;
+                        var pas2 = respon.data[item].sum.pas2;
+                        paslonOnly[key] = {
+                            'pas1': pas1,
+                            'pas2': pas2
+                        };
+                    }
+
+                    Object.keys(paslonOnly).forEach(function (key) {
+                        options.xAxis.categories.push(propinsi[key]);
+                        jokowi_amin.push(paslonOnly[key]['pas1']);
+                        prabowo_sandi.push(paslonOnly[key]['pas2']);
+
+                        total_jokowi_amin += Number(paslonOnly[key]['pas1']);
+                        total_prabowo_sandi += Number(paslonOnly[key]['pas2']);
+
+                    });
+                    Highcharts.chart('grafik', options);
+                },
+                cache: false
+            });
+
+            var optPie = {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Terakhir Diakses: ' + today + ' ' + jam
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Capres',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Jokowi Amin',
+                        y: total_jokowi_amin,
+                        color: '#21313E'
+                    }, {
+                        name: 'Prabowo Sandi',
+                        y: total_prabowo_sandi,
+                        color: '#53A976'
+                    }]
+                }],
+                credits: false
+            };
+
+            Highcharts.chart('grafikPie', optPie);
+
+
+        });
+    </script>
+</body>
+
+</html>
