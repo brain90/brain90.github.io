@@ -1,220 +1,211 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138658332-1"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Quran memorize calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        gtag('config', 'UA-138658332-1');
-  </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <style>
+        div[id^="juz"] {
+            height: 300px;
+            /* width: 380px; */
+        }
+    </style>
 </head>
 
+
 <body>
-    <div id="grafikPie" style="min-width: 300px; height: 200px; margin: 0 auto"></div>
-    <div id="grafik" style="min-width: 1200px; height: 500px; margin: 0 auto"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div id="juz1"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="juz2"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="juz3"></div>
+        </div>
+    </div>
+    <div style="margin-bottom: 25px;"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div id="juz4"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="juz5"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="juz6"></div>
+        </div>
+    </div>
+
+
+
+    <!--
     <script>
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
+        // First, let's make the colors transparent
+        Highcharts.setOptions({
+            colors: Highcharts.map(Highcharts.getOptions().colors, function(color) {
+                return Highcharts.color(color)
+                    .setOpacity(0.5)
+                    .get('rgba');
+            })
+        });
+
+        Highcharts.chart('juz1', {
+
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'column',
+                zoomType: 'xy',
+            },
+            title: {
+                text: 'Bagian 1'
+            },
+            subtitle: {
+                text: 'Juz 1 s.d Juz 5'
+            },
+            xAxis: {
+                /*
+                categories: ['Al-Fatihah', 'Al-Baqarah', 'Ali Imran', 'An-Nisa', 'Al-Maidah', 'Al-Anam', 'Al-Araf', 'Al-Anfal', 'At-Taubah', 'Yunus', 'Hud', 'Yusuf', 'Ar-Rad', 'Ibrahim', 'Al-Hijr', 'An-Nahl', 'Al-Isra', 'Al-Kahf', 'Maryam', 'Ta Ha', 'Al-Anbiya', 'Al-Hajj', 'Al-Muminun', 'An-Nur', 'Al-Furqan', 'Asy-Syuara', 'An-Naml', 'Al-Qasas', 'Al-Ankabut', 'Ar-Rum', 'Luqman', 'As-Sajdah', 'Al-Ahzab', 'Saba', 'Fatir', 'Ya Sin', 'As-Saffat', 'Sad', 'Az-Zumar', 'Al-Mumin', 'Fussilat', 'Asy-Syura', 'Az-Zukhruf', 'Ad-Dukhan', 'Al-Jasiyah', 'Al-Ahqaf', 'Muhammad', 'Al-Fath', 'Al-Hujurat', 'Qaf', 'Az-Zariyat', 'At-Tur', 'An-Najm', 'Al-Qamar', 'Ar-Rahman', 'Al-Waqiah', 'Al-Hadid', 'Al-Mujadilah', 'Al-Hasyr', 'Al-Mumtahanah', 'As-Saff', 'Al-Jumuah', 'Al-Munafiqun', 'At-Tagabun', 'At-Talaq', 'At-Tahrim', 'Al-Mulk', 'Al-Qalam', 'Al-Haqqah', 'Al-Maarij', 'Nuh', 'Al-Jinn', 'Al-Muzzammil', 'Al-Muddassir', 'Al-Qiyamah', 'Al-Insan', 'Al-Mursalat', 'An-Naba', 'An-Naziat', 'Abasa', 'At-Takwir', 'Al-Infitar', 'Al-Tatfif', 'Al-Insyiqaq', 'Al-Buruj', 'At-Tariq', 'Al-Ala', 'Al-Gasyiyah', 'Al-Fajr', 'Al-Balad', 'Asy-Syams', 'Al-Lail', 'Ad-Duha', 'Al-Insyirah', 'At-Tin', 'Al-Alaq', 'Al-Qadr', 'Al-Bayyinah', 'Az-Zalzalah', 'Al-Adiyat', 'Al-Qariah', 'At-Takasur', 'Al-Asr', 'Al-Humazah', 'Al-Fil', 'Quraisy', 'Al-Maun', 'Al-Kausar', 'Al-Kafirun', 'An-Nasr', 'Al-Lahab', 'Al-Ikhlas', 'Al-Falaq', 'An-Nas']
+                */
+                /*
+                                categories: [
+                                    'Al-Fatihah - Al-Baqarah 141', 'Al-Baqarah 142-252',
+                                    'Al-Baqarah 253 - Al-Imran 92', 'Al-Imran 94 - An-Nissa 23',
+                                    'Ali Imran 93 – An-Nisa 23'
+                                ]
+                                */
+                categories: ['juz 1', 'juz 2', 'juz 3', 'juz 4', 'juz 5']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Jumlah Ayat'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' ayat'
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false
+                }
+            },
+            series: [{
+                name: 'jumlah_ayat',
+                /*
+                data: [7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 112, 78, 118, 64, 77, 227, 93, 88, 69, 60, 34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 15, 21, 11, 8, 8, 19, 5, 8, 8, 11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 3, 5, 4, 5, 6],
+                */
+                data: [148, 111, 126, 131, 124],
+                pointPadding: 0
+            }, {
+                name: 'jumlah_hapal',
+                data: [7, 10, 0],
+                pointPadding: 0
+            }]
+        });
+    </script>
+-->
+
+    <script>
+        var idx = {};
+        var i;
+
+        idx = {
+            1: {
+                'juz': ['juz 1', 'juz 2', 'juz 3', 'juz 4', 'juz 5'],
+                'jumlah': [148, 111, 126, 131, 124]
+            },
+            2: {
+                'juz': ['Juz 06', 'Juz 07', 'Juz 08', 'Juz 09', 'Juz 10'],
+                'jumlah': [110, 149, 142, 159, 127]
+            },
+            3: {
+                'juz': ['Juz 11', 'Juz 12', 'Juz 13', 'Juz 14', 'Juz 15'],
+                'jumlah': [151, 170, 154, 227, 185]
+            },
+            4: {
+                'juz': ['Juz 16', 'Juz 17', 'Juz 18', 'Juz 19', 'Juz 20'],
+                'jumlah': [269, 190, 202, 339, 171]
+            },
+            5: {
+                'juz': ['Juz 21', 'Juz 22', 'Juz 23', 'Juz 24', 'Juz 25'],
+                'jumlah': [178, 169, 357, 175, 246]
+            },
+            6: {
+                'juz': ['Juz 26', 'Juz 27', 'Juz 28', 'Juz 29', 'Juz 30'],
+                'jumlah': [195, 399, 137, 431, 564]
+            }
         }
 
-        var today = dd + '/' + mm + '/' + yyyy;
-        var jam = new Date().toTimeString().slice(0, 8);
-        var jokowi_amin = [];
-        var prabowo_sandi = [];
+        for (i = 1; i <= 6; i++) {
 
-        $(function () {
-            var options = {
-                credits: false,
+            Highcharts.chart('juz' + i, {
                 chart: {
-                    type: 'column'
-                    //type: 'bar'
+                    type: 'column',
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
                 },
                 title: {
                     text: ''
                 },
-                subtitle: {
-                    text: ''
-                },
                 xAxis: {
-                    categories: [],
-                    crosshair: true
+                    categories: idx[i].juz
                 },
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Jumlah Suara'
+                        text: ''
                     }
                 },
                 tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                    footerFormat: '</table>',
                     shared: true,
-                    useHTML: true
+                    valueSuffix: ' ayat'
                 },
                 plotOptions: {
                     column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0,
+                        grouping: false,
+                        shadow: false,
                         dataLabels: {
                             enabled: true
-                        }
+                        },
+                        enableMouseTracking: false
                     },
-                    bar: {
-                        dataLabels: {
-                            enabled: true
-                        }
-                    }
                 },
                 series: [{
-                    name: 'Prabowo Sandi',
-                    data: prabowo_sandi,
-                    color: '#53A976',
-                    pointWidth: 15
-
+                    name: 'jumlah_ayat',
+                    data: idx[i].jumlah,
+                    pointPadding: 0
                 }, {
-                    name: 'Jokowi Amin',
-                    data: jokowi_amin,
-                    color: '#21313E',
-                    pointWidth: 15
-
+                    name: 'jumlah_hapal',
+                    data: [10],
+                    pointPadding: 0
                 }]
-            };
-
-            var propinsi = {
-                "1": "ACEH",
-                "6728": "SUMATERA UTARA",
-                "12920": "SUMATERA BARAT",
-                "14086": "RIAU",
-                "15885": "JAMBI",
-                "17404": "SUMATERA SELATAN",
-                "20802": "BENGKULU",
-                "22328": "LAMPUNG",
-                "24993": "KEPULAUAN BANGKA BELITUNG",
-                "25405": "KEPULAUAN RIAU",
-                "25823": "DKI JAKARTA",
-                "26141": "JAWA BARAT",
-                "32676": "JAWA TENGAH",
-                "41863": "DAERAH ISTIMEWA YOGYAKARTA",
-                "42385": "JAWA TIMUR",
-                "51578": "BANTEN",
-                "53241": "BALI",
-                "54020": "NUSA TENGGARA BARAT",
-                "55065": "NUSA TENGGARA TIMUR",
-                "58285": "KALIMANTAN BARAT",
-                "60371": "KALIMANTAN TENGAH",
-                "61965": "KALIMANTAN SELATAN",
-                "64111": "KALIMANTAN TIMUR",
-                "65702": "SULAWESI UTARA",
-                "67393": "SULAWESI TENGAH",
-                "69268": "SULAWESI SELATAN",
-                "72551": "SULAWESI TENGGARA",
-                "74716": "GORONTALO",
-                "75425": "SULAWESI BARAT",
-                "76096": "MALUKU",
-                "77085": "MALUKU UTARA",
-                "78203": "PAPUA",
-                "81877": "PAPUA BARAT",
-                "928068": "KALIMANTAN UTARA"
-            };
-
-            var total_jokowi_amin = 0;
-            var total_prabowo_sandi = 0;
-
-            $.ajax({
-                url: 'https://kawal-c1.appspot.com/api/c/0?' + new Date().getTime(),
-                'async': false,
-                success: function (res) {
-                    var res = JSON.stringify(res);
-                    var respon = JSON.parse(res);
-                    var paslonOnly = [];
-                    for (var item in respon.data) {
-                        var key = eval(item);
-                        var pas1 = respon.data[item].sum.pas1;
-                        var pas2 = respon.data[item].sum.pas2;
-                        paslonOnly[key] = {
-                            'pas1': pas1,
-                            'pas2': pas2
-                        };
-                    }
-
-                    Object.keys(paslonOnly).forEach(function (key) {
-                        options.xAxis.categories.push(propinsi[key]);
-                        jokowi_amin.push(paslonOnly[key]['pas1']);
-                        prabowo_sandi.push(paslonOnly[key]['pas2']);
-
-                        total_jokowi_amin += Number(paslonOnly[key]['pas1']);
-                        total_prabowo_sandi += Number(paslonOnly[key]['pas2']);
-
-                    });
-                    Highcharts.chart('grafik', options);
-                },
-                cache: false
             });
-
-            var optPie = {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Terakhir Diakses: ' + today + ' ' + jam
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Capres',
-                    colorByPoint: true,
-                    data: [{
-                        name: 'Jokowi Amin',
-                        y: total_jokowi_amin,
-                        color: '#21313E'
-                    }, {
-                        name: 'Prabowo Sandi',
-                        y: total_prabowo_sandi,
-                        color: '#53A976'
-                    }]
-                }],
-                credits: false
-            };
-
-            Highcharts.chart('grafikPie', optPie);
-
-
-        });
+        }
     </script>
+
+
+
 </body>
 
 </html>
