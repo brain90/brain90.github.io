@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Return Early &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<article>
+<h1>Return Early</h1>
+<p class="meta"><time datetime="2022-04-23">2022-04-23</time> &middot; <a href="category-kehidupan.html">Kehidupan</a></p>
+<p><!-- wp:paragraph -->
+<p>Bila ada if di baris N dan letak else jauh dari N. Dan if elsenya bersarang begitu banyak. Sudah pasti ada yang tidak beres. format penulisan seperti ini istilahnya long nested if. Format ini setidaknya punya tiga efek negatif :</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>1. Membuat kode sulit difahami.<br>2. Kemungkinan bugs lebih tinggi.<br>3. Proses debug menjadi lebih lama.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Sebagai contoh mari amati kode berikut. Ide kode sangatlah sederhana: kirim sms bila nomer tujuan dan pesan sudah valid . Pastikan request berasal dari alamat IP yang diizinkan. Selainnya tolak dan berikan pesan error.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:preformatted -->
+<pre class="wp-block-preformatted"> 1 function sendSms () {
+ 2  
+ 3   $allow_ip = ['127.0.0.1', '192.168.1.4', '192.168.1.9'];
+ 4  
+ 5   if (array_key_exists($_SERVER["REMOTE_ADDR"], $allow_ip) == true) 
+ 6   {
+ 7     if (isset($_POST['phone']) and isset($_POST['message'])) {
+ 8  
+ 9       $url = "https://api.vendorsms.com/v1/send";
+10       $token   = base64_encode("petruk:petruk123");
+11       $data = json_encode(
+12         ["from" =&gt; "petruk", 
+13         "to"    =&gt; $_POST['phone'], 
+14         "text"  =&gt; $_POST['message']]
+15       );
+16  
+17       $curl    = curl_init($url);
+18       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+19       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+20       curl_setopt($curl, CURLOPT_HEADER, false);
+21       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+22       curl_setopt($curl, CURLOPT_HTTPHEADER, 
+23       ["Content-Type: application/json", 
+24        "Authorization: Basic $token"]);
+25       curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+26       $response = curl_exec($curl);
+27       print $response;
+28     } else {
+29       die('nomer dan pesan tidak boleh kosong');
+30     }
+31   } else {
+32     die('access denied');
+33   }</pre>
+<!-- /wp:preformatted --></p><p><!-- wp:paragraph -->
+<p>If-nya di jakarta, else-nya di wakanda!. Ketika tiba di baris ke 5 (percabangan awal), bola mata otomatis mencari dimana percabangan ini berakhir. Dibuanglah kita ke baris 31. Baru saja selesai mencerna percabangan awal. Kita kembali dipermainkan di baris ke 7 (percabangan kedua). Kembali kita dibuang ke baris 28 untuk menemukan letak akhir percabangan.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Setelah jungkir balik baru bisa ke baris selanjutnya. Sangat tidak nyaman.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Ini baru di satu file. Belum lagi di file lain. Sangat mungkin kita bertemu yang lebih buruk. Hiyy. Daripada muntah mari refactor menjadi format return early.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:preformatted -->
+<pre class="wp-block-preformatted"> 1 function sendSms() {
+ 2 
+ 3   $allow_ip = ['127.0.0.1', '192.168.1.4', '192.168.1.9'];
+ 4 
+ 5   // Return early jika source request tdk valid
+ 6   if (array_key_exists($_SERVER["REMOTE_ADDR"], $allow_ip) == false)
+ 7   {
+ 8     return 'ERROR: Tidak Diizinkan.';
+ 9   }
+10 
+11   // Return early jika phone dan message tdk valid
+12   if (
+13     isset($_POST['phone']) == false and
+14     isset($_POST['message']) == false) {
+15     return "ERROR: Nomer tujuan dan pesan tdk boleh kosong.";
+16   }
+17 
+18   $url   = "https://api.vendorsms.com/v3/send";
+19   $token = base64_encode("petruk:petruk123");
+20   $data = json_encode(
+21     ["from" =&gt; "petruk",
+22     "to"    =&gt; $_POST['phone'],
+23     "text"  =&gt; $_POST['message']]
+24   );
+25 
+26   $curl    = curl_init($url);
+27   curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+28   curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+29   curl_setopt($curl, CURLOPT_HEADER, false);
+30   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+31   curl_setopt($curl, CURLOPT_HTTPHEADER,
+32     ["Content-Type: application/json",
+33     "Authorization: Basic $token"];
+34   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+35   return curl_exec($curl);
+36 }</pre>
+<!-- /wp:preformatted --></p><p><!-- wp:paragraph -->
+<p>Nah.. kini kode lebih nyaman dibaca. Bola mata tidak lagi lelah loncat atas bawah. Karena proses baca sudah dibuat sederhana dan runut. Ide tersirat pun jadi lebih mudah difahami.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Masih banyak yang bisa direfactor dari kode tersebut. Pada kesempatan ini kita abaikan saja. Kita fokus untuk menghilangkan tradisi long nested if.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Kode ditulis untuk dibaca ulang pada kemudian hari. Entah oleh pribadi atau orang lain. Jangan sampai pengembangan di masa depan jadi rumit karena sesuatu yang kita perbuat sendiri.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Referensi:<br><em>Clean Code: A handbook of agile software craftmanship. Robert C Martin.</em></p>
+<!-- /wp:paragraph --></p>
+
+</article>
+<p><a href="index.html">&larr; Back to index</a></p>
+
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
+
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

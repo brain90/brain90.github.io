@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integrasi Sistem Dengan Postgres Foreign Data Wrapper &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<article>
+<h1>Integrasi Sistem Dengan Postgres Foreign Data Wrapper</h1>
+<p class="meta"><time datetime="2021-06-21">2021-06-21</time> &middot; <a href="category-ngoding.html">Ngoding</a></p>
+<p><p style="text-align:justify;">Ceritanya tahun 2014 silam dapet problem untuk integrasi sistem di sebuah perusahaan. Sebut saja PT Mario Luigi. Saat itu lagi kepingin cari alternatif solusi selain nulis API. Kebetulan FDW waktu itu lagi hot-hotnya.</p>
+<p style="text-align:justify;">PT Mario Luigi saat itu telah memiliki sebuah Aplikasi ERP yang mengelola puluhan cabang. Di departemen sumber daya manusia (SDM) ada pula Aplikasi SDM. Direktur utama ingin melihat secara <em>real time</em> beberapa metriks dalam bentuk layar dashboard. Berikut beberapa hal yang ingin diukur:</p></p><p><pre># Perolehan kontrak     : Total sales per unit kerja (Dalam Rupiah)
+# Penyerapan kontrak    : Sales (kontrak yg sudah diproduksi dan diterima pelanggan) / jumlah kontrak 
+# Profitabilitas SDM    : Laba bersih / per jumlah pegawai di setiap cabang
+# Produktivitas SDM     : Total sales / jumlah pegawai di setiap cabang.
+</pre>
+Informasi seputar kontrak, sales, laba terdapat di dalam database ERP. Sedangkan informasi pegawai terdapat di dalam database SDM. ERP &amp; SDM kebetulan sudah sama-sama menggunakan postgres, Mari kita integrasikan kedua database agar dashboard pak direktur segera tampil.</p><p><strong>DEMO</strong></p><p>Skenarionya kita ingin load sebuah view dari database ERP ke dalam database SDM. View ini kemudian akan dikombinasikan dengan data di database SDM untuk menghasilkan informasi yang dibutuhkan oleh dashboard. Berikut detil langkah-langkahnya:</p><p>1. Buat sebuah view di database ERP. View ini berfungsi untuk me-resume kontrak, sales, dan laba per unit kerja. Jadilah view v_dashboard, dengan definisi kolom sbb :
+<pre>   (
+        unit_id         integer,
+        tahun           integer, 
+        bulan           integer,
+        nilai_kontrak   numeric, 
+        nilai_sales     numeric,
+        laba_bersih     numeric
+    ); 
+Demi mempersingkat, DDL viewnya tidak usah kita pasang ya. Intinya view ini hanya mengolah data dari modul sales dan akuntansi.</pre>
+2. Load ekstensi postgres_fdw ke dalam database sdm
+<pre>CREATE EXTENSION postgres_fdw;</pre>
+3. Buat definisi remote server (dalam hal ini server ERP)
+<pre> CREATE SERVER srv_erp 
+ FOREIGN DATA WRAPPER postgres_fdw 
+ OPTIONS (dbname 'db_perusahaan_xxx', host '192.168.70.10', port '9999');
+</pre>
+4. Petakan sebuah user pada remote server, agar database utama (Aplikasi SDM) bisa mengakses remote server.
+<pre>CREATE USER MAPPING for 
+SERVER srv_erp
+OPTIONS (user 'user_erp', password 'pass_erp');
+</pre>
+5. Buat definisi foreign table ERP yg akan diimpor ke Aplikasi SDM.
+<pre>CREATE FOREIGN TABLE v_dashboard 
+    (
+        unit_id         integer,
+        tahun           integer, 
+        bulan           integer,
+        nilai_kontrak   numeric, 
+        nilai_sales     numeric,
+        laba_bersih     numeric
+    )
+SERVER srv_erp OPTIONS (table_name 'v_dashboard');</pre>
+Selesai. Test akses view ERP langsung dari database SDM.
+<pre>db_sdm=# SELECT * FROM v_dashboard;</pre>
+<p style="text-align:justify;">Jrenggg.. akan muncul konten table/view yang terletak di database remote. Ajib.. Selanjutnya table tersebut tinggal diolah menggunakan bahasa kesayangan untuk dijadikan dashboard. Asiknya, foreign table dapat langsung kita mainkan persis seperti tabel lokal, Kita bisa langsung operasikan create, read, update, delete terhadapnya., perubahannya pun langsung tersimpan di database remote. Bahkan, table remote tersebut bisa direlasikan juga dengan database lokal !. Nikmat mana lagi yang kamu dustakan.</p>
+<p style="text-align:justify;">Jika kita pakai postgres 9.5 ke atas, foreign table tidak perlu didefinisikan ddlnya, cukup sebut saja nama skema/table yg ingin di impor. Impornya pun tidak terbatas hanya satu table saja, bisa liberal seperti berikut :</p></p><p><pre>Impor semua table/view di bawah skema tertentu.
+    IMPORT FOREIGN SCHEMA akuntansi
+    FROM SERVER srv_erp INTO akuntansi_from_erp</p><p>Impor hanya table tertentu saja.
+    IMPORT FOREIGN SCHEMA akuntasi 
+    LIMIT TO (neraca,  
+    laba_rugi, jurnal)
+    FROM SERVER srv_erp INTO akuntansi_from_erp</p><p>Impor semua table di dalam skema, kecuali table tertentu.
+    IMPORT FOREIGN SCHEMA akuntansi EXCLUDE (neraca)
+    FROM SERVER srv_erp INTO akuntansi_from_erp;
+</pre>
+<strong>Bonus</strong></p><p>Untuk memonitor segala sesuatu terkait foreign table, kamu bisa lihat tabel berikut ini:
+<pre>                    List of relations
+   Schema   |          Name           | Type  |  Owner  
+------------+-------------------------+-------+---------
+ pg_catalog | pg_foreign_data_wrapper | table | postgres
+ pg_catalog | pg_foreign_server       | table | postgres
+ pg_catalog | pg_foreign_table        | table | postgres
+ pg_catalog | pg_user_mappings        | table | postgres
+</pre>
+<p style="text-align:justify;">Dan.. fdw tidak hanya untuk sesama postgres saja, fdw juga punya banyak driver : MySQL, Oracle, Informix, MSSQL-Server, Cassandra, MongoDB, Redis, CSV, JSON, dst. Iya beneran ini, postgres bisa konek secara langsung dengan sumber data tersebut, cukup pasang extension dan konfig seperti di atas. "BOOM !", kita sudah bisa integrasikan banyak sumber data ke dalam satu tempat.</p>
+<strong>Kesimpulan</strong>
+<p style="text-align:justify;">Dengan postgres fdw, kita bisa integrasikan banyak sumber data ke dalam satu tempat dengan mudah. Bila database ada di satu lingkungan, FDW akan memudahkan development ketimbang harus membuat API (consumer &amp; producer) pada tiap sistem yg hendak diintegrasi.</p>
+Referensi
+[1] https://wiki.postgresql.org/wiki/Foreign_data_wrappers</p>
+
+</article>
+<p><a href="index.html">&larr; Back to index</a></p>
+
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
+
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

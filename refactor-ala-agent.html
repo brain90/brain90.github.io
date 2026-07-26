@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TIL: Refactor Ala Agent &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<article>
+<h1>TIL: Refactor Ala Agent</h1>
+<p class="meta"><time datetime="2026-05-23">2026-05-23</time> &middot; <a href="category-software.html">Software</a></p>
+<p>Akhirnya kemarin coba hal liar baru. Dengan niatan, Agar technical debt berkurang ke titik nol. Saya minta agent refactor satu core module. Idenya agar code lebih mudah dirawat untuk jangka waktu panjang. </p><p><b>Langkah 1</b>
+Prompt ke Gemini Pro. "Create clean code style guide for agent.md influenced by Robert C. Martin (Uncle Bob), Martin Fowler, and other top book SWE author".</p><p><b>Langkah 2</b>
+Salin hasil langkah 1 ke code-style-guide.md. Attach agar menjadi konteks permanen tiap melakukan prompt.</p><p><b>Langkah 3</b>
+Prompt ke LLM. Kali ini pakai Claude Sonnet 4.6. "Refactor this code @sebuah-core-module". Perhatikan "thinking process", Pastikan agent menyertakan code-style-guide sebagai konteks. </p><p><b>Hasil</b>
+* Karena lupa menyertakan poin "rewrite dalam bahasa indonesia". maka :
+* Semua class, variabel, fungsi, dan komponen module direwrite ke bahasa inggris.
+* Penamaan Object semua defaultnya camelCase.
+* Konsep clean code hampir semua diterapkan 
+* Satu fitur broken. Karena ada satu fungsi yg butuh berkas lain. dan tidak disertakan pada konteks. Naasnya. fitur tsb belum masuk test coverage. Untungnya. fitur penting tapi minor.
+* User production "ribut" selama 20 menit karena fitur tidak bekerja. </p><p><b>Kesimpulan</b>
+* Sertakan konteks lengkap agar pemahaman agent komprehensif.
+* Pastikan semua fitur penting masuk test
+* Harus lebih rajin otomasi CI/CT/CD dengan agent
+* Terus sempurnakan worklfow dengan agent
+* Mengingat agent bekerja sesuai arahan majikan. Arah kualitas berbanding lurus dengan pemahaman majikan akan teori SWE.
+1. Bisa cepat membaik. 
+2. Bisa juga cepat membusuk.</p><p>Berikut code-style-guide.md hasil dari langkah 1.
+<pre>
+You are a senior software engineer influenced by Robert C. Martin (Uncle Bob), Martin Fowler, and pragmatic software craftsmanship principles.</p><p>Your primary mission:
+Write clean, maintainable, readable, testable, production-grade code.</p><p>Core rules you MUST follow:</p><p>1. Readability First
+- Code is written for humans first, machines second.
+- Prefer clarity over cleverness.
+- Avoid dense one-liners unless they improve readability.
+- Every function should be understandable in under 30 seconds.</p><p>2. Small Functions
+- Functions should do ONE thing only.
+- Keep functions short.
+- Extract logic aggressively into well-named methods.
+- Avoid deep nesting.</p><p>3. Naming
+- Use intention-revealing names.
+- Avoid abbreviations unless universally understood.
+- Variable, function, and class names must explain WHY they exist.</p><p>4. Single Responsibility Principle
+- Each module/class/function should have only one reason to change.
+- Separate business logic, IO, persistence, validation, formatting, and infrastructure concerns.</p><p>5. No Duplication
+- Eliminate repeated logic.
+- Extract reusable abstractions carefully.
+- Do not over-engineer generic abstractions prematurely.</p><p>6. Comments
+- Prefer self-documenting code over comments.
+- Use comments only when explaining WHY, never WHAT.
+- Remove dead/commented-out code.</p><p>7. Error Handling
+- Fail loudly and clearly.
+- Use meaningful exceptions/messages.
+- Never silently swallow errors.
+- Validate inputs early.</p><p>8. Architecture
+- Favor loose coupling and high cohesion.
+- Prefer composition over inheritance.
+- Keep dependencies directional and predictable.
+- Separate domain logic from frameworks.</p><p>9. Testing
+- Write code that is easy to test.
+- Avoid hidden state and side effects.
+- Prefer deterministic functions.
+- Include unit tests when relevant.</p><p>10. Clean APIs
+- Minimize parameter count.
+- Avoid boolean flag arguments.
+- Return consistent structures.
+- Design APIs that are hard to misuse.</p><p>11. Performance
+- Do not sacrifice maintainability for premature optimization.
+- Optimize only proven bottlenecks.
+- Write efficient but understandable code.</p><p>12. Code Style
+- Keep formatting consistent.
+- Use whitespace to improve readability.
+- Keep line length reasonable.
+- Prefer explicitness over magic behavior.</p><p>13. Refactoring Mindset
+- Continuously improve structure while preserving behavior.
+- If code becomes confusing, stop and refactor.</p><p>14. Output Requirements
+When generating code:
+- Produce complete runnable code.
+- Use modern best practices for the language/framework.
+- Avoid deprecated APIs.
+- Include concise explanations only when necessary.
+- Do not generate placeholder TODO implementations unless requested.
+- Do not over-abstract small/simple problems.
+- Keep dependencies minimal.</p><p>15. Decision Framework
+When multiple solutions exist:
+- Choose the simplest solution that remains maintainable at scale.
+- Prefer boring and reliable technology over fancy patterns.
+- Optimize for long-term maintainability by other engineers.</p><p>Before finalizing code, internally review:
+- Is this readable?
+- Is this testable?
+- Is this maintainable?
+- Can duplication be reduced?
+- Are names clear?
+- Is the complexity justified?</p><p>If not, refactor before answering.
+</pre></p>
+
+</article>
+<p><a href="index.html">&larr; Back to index</a></p>
+
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
+
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buktikan dulu asumsi &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<article>
+<h1>Buktikan dulu asumsi</h1>
+<p class="meta"><time datetime="2021-08-10">2021-08-10</time> &middot; <a href="category-lesson-learned.html">Lesson Learned</a></p>
+<p><!-- wp:paragraph -->
+<p>Ceritanya lagi memporting osticket di tempat klien ke yii2. osticket ini pakai mysql. semua berkas (image, pdf, xls, etc) secara default disimpan dalam database. saya menginginkan di desain baru semua berkas disimpan pada file system. Debat penyimpanan file system vs db kita lanjut pada posting berikutnya.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Osticket secara default memecah berkas ke potongan 512 KB. Misalnya ada berkas ukuran 1 MB. Maka oleh osticket berkas akan dipecah menjadi 2 baris di ost_file_chunk dengan ukuran masing-masing 512 KB. Karena itu ketika dump kita harus group_concat potongan tersebut agar menghasilkan berkas yg utuh. Skrip dump ada <a href="https://gist.github.com/brain90/4baf1a560b4ea4bd3f4c9c1e8a7c554a">disini</a>.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Di dev, skrip dump tersebut sudah berjalan mulus pakai php7.4 dan mariadb 10.3. skrip menghasilkan 700 MB berkas. Sementara server pakai php7.4 dan mysql 5.6. Ketika skrip dijalankan di server, semua berkas yg didump hanya berukuran 1 KB.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:heading {"level":1} -->
+<h1 id="buru-buru-adalah-perbuatan-setan">Buru-buru adalah perbuatan setan</h1>
+<!-- /wp:heading --></p><p><!-- wp:paragraph -->
+<p>Karena mysqlnya udah lawas banget. Maka saya berasumsi ini adalah bugs group_concat. Googling dgn kata kunci "group_concat bugs". benar saja muncul entri BUGS di result. lagi-lagi karena ini "versi lawas" maka tanpa memeriksa result saya simpulkan saja asumsi ini benar.</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Dari keputusan ini muncul beberapa rencana solusi<br>1 install dan restore data mysql5.6 ke mysql versi baru di production<br>2 dump mysql5.6 di dev. upload berkas hasil dump balik ke production<br>3 analisa waktu download &amp; upload berkas</p>
+<!-- /wp:paragraph --></p><p><!-- wp:paragraph -->
+<p>Setelah merasa desain solusi kok kompleks amat. Akhirnya saya klik result lain dari googling di atas. ternyata problem ini bukan bugs. <strong>Default group_concat di versi 5.6 memang hanya 1024  alias 1 KB !</strong></p>
+<!-- /wp:paragraph --></p><p><!-- wp:quote -->
+<blockquote class="wp-block-quote"><p>Haha "Bodo dipiara!, kambing dipiara bisa gemuk." </p><cite>(kasino, pintar-pintar bodo. 1980)</cite></blockquote>
+<!-- /wp:quote --></p><p><!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph --></p><p><!-- wp:heading -->
+<h2 id="solusi">Solusi</h2>
+<!-- /wp:heading --></p><p><!-- wp:preformatted -->
+<pre class="wp-block-preformatted">cari besar_maksimum_berkas<br>SELECT file_id, octet_length(GROUP_CONCAT(filedata)) FROM <code>ost_file_chunk</code> ORDER BY 2 desc;</pre>
+<!-- /wp:preformatted --></p><p><!-- wp:preformatted -->
+<pre class="wp-block-preformatted">SET @@group_concat_max_len = besar_maksimum_berkas</pre>
+<!-- /wp:preformatted --></p><p><!-- wp:paragraph -->
+<p>sat set, semua berkas sekarang terdump sempurna pakai versi 5.6</p>
+<!-- /wp:paragraph --></p><p><!-- wp:heading -->
+<h2 id="hikmah">Hikmah</h2>
+<!-- /wp:heading --></p><p><!-- wp:list -->
+<ul><li>Sabar. Konfirmasi problem. Buktikan asumsi.</li><li>Wrong assumption -&gt; fool decision.</li><li>Kalau lelah, istirahat. bukan kerja.</li></ul>
+<!-- /wp:list --></p><p><!-- wp:embed {"url":"https://www.youtube.com/watch?v=MGPS3KzgCs4","type":"video","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} -->
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+https://www.youtube.com/watch?v=MGPS3KzgCs4
+</div></figure>
+<!-- /wp:embed --></p>
+
+</article>
+<p><a href="index.html">&larr; Back to index</a></p>
+
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
+
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

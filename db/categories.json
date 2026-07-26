@@ -1,0 +1,341 @@
+{
+   "akhlak-nabi" : {
+      "count" : 1,
+      "name" : "Akhlak Nabi",
+      "posts" : [
+         "kalau-ada-opsi-pilih-yang-termudah.html"
+      ]
+   },
+   "dev-culture" : {
+      "count" : 3,
+      "name" : "Dev Culture",
+      "posts" : [
+         "seven-aspects-of-our-culture.html",
+         "keep-it-simple-stupid.html",
+         "how-thomas-edison-suceeded.html"
+      ]
+   },
+   "dongeng-bocil" : {
+      "count" : 2,
+      "name" : "Dongeng Bocil",
+      "posts" : [
+         "ngobrol-fisika-sama-bocil.html",
+         "messaging-systems-dongeng-bocil-1.html"
+      ]
+   },
+   "ekonomi" : {
+      "count" : 2,
+      "name" : "Ekonomi",
+      "posts" : [
+         "koperasi-sembako-per-komplek.html",
+         "puasa-dan-kemakmuran.html"
+      ]
+   },
+   "filosofi" : {
+      "count" : 1,
+      "name" : "Filosofi",
+      "posts" : [
+         "menerka-maksud-tuhan-1.html"
+      ]
+   },
+   "inspiratif" : {
+      "count" : 6,
+      "name" : "Inspiratif",
+      "posts" : [
+         "ridwan-kamil.html",
+         "bekerja-dengan-elon-musk.html",
+         "dahlan-iskan.html",
+         "zappos-core-values.html",
+         "komedi-tunggal-ala-cak-nun.html",
+         "cockroach-theory.html"
+      ]
+   },
+   "jalan-jalan" : {
+      "count" : 3,
+      "name" : "Jalan-Jalan",
+      "posts" : [
+         "pulau-pari-2011.html",
+         "depok-jasinga-2011.html",
+         "ekspedisi-curug-luhur.html"
+      ]
+   },
+   "joke-of-the-day" : {
+      "count" : 2,
+      "name" : "Joke Of The Day",
+      "posts" : [
+         "why-no-one-reads-full-articles-anymore.html",
+         "akhlaknya-rusak.html"
+      ]
+   },
+   "kehidupan" : {
+      "count" : 111,
+      "name" : "Kehidupan",
+      "posts" : [
+         "things-schools-should-teach.html",
+         "satanic-technique.html",
+         "asyiknya-competitive-programming.html",
+         "umar-bin-abdul-aziz.html",
+         "suka-suka-tuhan.html",
+         "susah-jadi-pedagang.html",
+         "data-wrangling-with-postgres-duckdb.html",
+         "hidup-seperti-main-game.html",
+         "asynchronous-email-sending-using-bash.html",
+         "starting-a-company.html",
+         "metrics.html",
+         "8-alasan-saya-suka-linux.html",
+         "gara-gara-shod-dan-sa.html",
+         "tewas.html",
+         "malih-dan-mamat-ngobrol-kehidupan.html",
+         "kasihan.html",
+         "empat-prinsip.html",
+         "ciri-sekolah-bagus.html",
+         "produk-vs-proyek.html",
+         "enjoy-suffering.html",
+         "gerbong-neraka-bagian-1.html",
+         "kapan-jsonb-kapan-harus-rows.html",
+         "produk-vs-sales-girl.html",
+         "kepingin-gundam.html",
+         "musik-haram.html",
+         "menunggu-ditulis-sejarah-2.html",
+         "3-tipe-orang.html",
+         "nikmat-anak-it.html",
+         "siapa-temennya.html",
+         "fix-menu-windows-10-tidak-bisa-dibuka.html",
+         "selamat-sore-jakarta.html",
+         "feynman-technique-for-learning.html",
+         "kepinteran-sebuah-homonim.html",
+         "orang-kota-memang-munafik.html",
+         "kecerdasan-finansial.html",
+         "tidak-ada-karya-useless.html",
+         "ilmu.html",
+         "high-paradox-tolerance.html",
+         "tergantung-yang-diinves.html",
+         "tidak-pernah-puas.html",
+         "semua-dari-pikiran.html",
+         "cara-instan-mengobati-masuk-angin.html",
+         "vim-map-multiple-command.html",
+         "gaya-hidup-yang-keliru.html",
+         "zero-tolerance-faults.html",
+         "jakarta-petang-ini.html",
+         "agama-dan-kemanusiaan.html",
+         "tuhan-vs-client.html",
+         "membiasakan-yang-benar.html",
+         "commit-messages-bukanlah-sampah-kata-kata.html",
+         "ai-dibatas-transisi.html",
+         "kedalaman.html",
+         "dialog-tuhan.html",
+         "good-vs-bad-programmer.html",
+         "riset.html",
+         "list-lomba.html",
+         "nasib-sysadmin.html",
+         "mengatasi-blocking-port-ssh-telkom-speedy.html",
+         "3102.html",
+         "critical-thinking-principal.html",
+         "kiat-menulis-enak-ala-dahlan-iskan.html",
+         "the-science-of-shalat-cuplikan-bagian-tahajud.html",
+         "answer-to-disrespect.html",
+         "mengasah-otak-untuk-memecahkan-masalah.html",
+         "digulung-ai.html",
+         "ironi-bpjs.html",
+         "fokus-ke-produk-bukan-pencitraan.html",
+         "learning-paradox.html",
+         "paradoks-maksimal.html",
+         "jabatan-bukan-tempat-belajar.html",
+         "3139.html",
+         "chess-principles.html",
+         "tips-agentic-coding.html",
+         "lagu-tentang-tempat-indonesia.html",
+         "menerka-maksud-tuhan-2-2.html",
+         "5-hal-yang-harus-disegerakan.html",
+         "kesabaran-level-nabi.html",
+         "koleksi-jazz-fusion-indonesia.html",
+         "doubt-vs-failure.html",
+         "tetaplah-berguna.html",
+         "antarmuka-ideal.html",
+         "1-infinity.html",
+         "usg-4-dimensi-murah-di-jakarta-dr-bob-ichsan-masri.html",
+         "ide-trivia-game.html",
+         "return-early.html",
+         "pandawara.html",
+         "perintis-vs-pewaris.html",
+         "pedagogy-of-the-oppressed.html",
+         "good-education.html",
+         "defensif-pada-sistem.html",
+         "merona.html",
+         "islam-otomasi.html",
+         "kolaborasi-vs-kompetisi.html",
+         "simulasi.html",
+         "til-sukses-mengajar.html",
+         "andai-khalifah-masih-hidup.html",
+         "tutorial-problem-solving.html",
+         "sedekahnya-anak-it.html",
+         "hidup-bahagia-dengan-minimalism.html",
+         "hitler-implements-sap.html",
+         "complexity-simplicity.html",
+         "peta-kopi-indonesia.html",
+         "trotoar-semanggi-2004.html",
+         "teknologi-di-zaman-batu.html",
+         "jalan-terpuji.html",
+         "bjir.html",
+         "desain-alam-masa-depan-rekayasa.html",
+         "ringkasan-pengurusan-jenazah.html",
+         "zen-of-python.html",
+         "selalu-ngerasa-kurang.html",
+         "memperbaiki-certbot-ngadat.html"
+      ]
+   },
+   "kenapa-ya" : {
+      "count" : 1,
+      "name" : "Kenapa ya ?",
+      "posts" : [
+         "kenapa-ya-anatomi-tubuh-harus-begitu.html"
+      ]
+   },
+   "kitab-al-hikam" : {
+      "count" : 1,
+      "name" : "Kitab Al Hikam",
+      "posts" : [
+         "al-hikam-63.html"
+      ]
+   },
+   "koleksi-bugs" : {
+      "count" : 9,
+      "name" : "Koleksi Bugs",
+      "posts" : [
+         "uang-nasabah-bank-nagari-raib-ojk-lakukan-penyelidikan.html",
+         "2-karyawan-bank-mandiri-didakwa-retas-sistem-dan-gelapkan-uang.html",
+         "saldo-nasabah-bank-mandiri-berubah-90-persen-kembalikan-uang.html",
+         "tsbs-april-it-crash-leads-to-107m-loss.html",
+         "atm-mandiri-medan-labuhan-error-tarik-tunai-rp-1-juta-keluar-rp-2-juta.html",
+         "koleksi-bugs.html",
+         "nasabah-bank-mandiri-kaget-rekeningnya-jadi-100-triliun.html",
+         "bareskrim-konfirmasi-telah-tangkap-enam-tersangka-peretasan-bank-jakarta-rp-200-miliar.html",
+         "mobile-banking-bca-error-ini-penampakannya.html"
+      ]
+   },
+   "kuliner" : {
+      "count" : 2,
+      "name" : "Kuliner",
+      "posts" : [
+         "garang-asem-solo.html",
+         "kupat-tahu-solo.html"
+      ]
+   },
+   "lesson-learned" : {
+      "count" : 1,
+      "name" : "Lesson Learned",
+      "posts" : [
+         "buktikan-dulu-asumsi.html"
+      ]
+   },
+   "lyrics-of-the-day" : {
+      "count" : 2,
+      "name" : "Lyrics Of The Day",
+      "posts" : [
+         "blowin-in-the-wind.html",
+         "under-the-same-sun.html"
+      ]
+   },
+   "mnemonic" : {
+      "count" : 1,
+      "name" : "Mnemonic",
+      "posts" : [
+         "mnemonic-semua-negara-di-afrika.html"
+      ]
+   },
+   "ngoding" : {
+      "count" : 1,
+      "name" : "Ngoding",
+      "posts" : [
+         "integrasi-sistem-dengan-postgres-foreign-data-wrapper.html"
+      ]
+   },
+   "produktifitas" : {
+      "count" : 3,
+      "name" : "Produktifitas",
+      "posts" : [
+         "ssh-with-local-aliases.html",
+         "reading-vs-writing-ratio.html",
+         "desain-ruang-kerja-2.html"
+      ]
+   },
+   "quote-of-the-day" : {
+      "count" : 12,
+      "name" : "Quote Of The Day",
+      "posts" : [
+         "syubhat.html",
+         "20-kick-ass-programming-quotes.html",
+         "ketenangan.html",
+         "touching-the-heart-with-native-languange.html",
+         "keliling-neraka-syurga.html",
+         "yang-tuhan-benci.html",
+         "genius-zone.html",
+         "insanity.html",
+         "walau-dengan-sebutir-kurma.html",
+         "ask-the-right-question.html",
+         "2732.html",
+         "the-real-richness.html"
+      ]
+   },
+   "review-buku" : {
+      "count" : 1,
+      "name" : "Review Buku",
+      "posts" : [
+         "resensi-buku-nps.html"
+      ]
+   },
+   "software" : {
+      "count" : 18,
+      "name" : "Software",
+      "posts" : [
+         "turbo-kopi-paste-cukup-4-keystroke.html",
+         "swiss-army-si-tukang-debug.html",
+         "kambing-ui.html",
+         "gara-gara-password.html",
+         "refactor-ala-agent.html",
+         "linux-find-in-files-recursively.html",
+         "harga-development-software.html",
+         "bogor-tahun-1900.html",
+         "otomasi-backup-postgres-magic-bash.html",
+         "brasero-burner-yg-keder.html",
+         "ngeblog-dari-vim.html",
+         "why-you-should-open-your-source-code.html",
+         "watch.html",
+         "regex-ip-address.html",
+         "how-to-rsync-with-file-list-and-ssh.html",
+         "hukum-linus.html",
+         "copy-file-di-linux-dengan-cepat.html",
+         "ssh-tanpa-password.html"
+      ]
+   },
+   "sustainable-development" : {
+      "count" : 1,
+      "name" : "Sustainable Development",
+      "posts" : [
+         "bali-green-school.html"
+      ]
+   },
+   "uncategorized" : {
+      "count" : 17,
+      "name" : "Uncategorized",
+      "posts" : [
+         "should-i-give-up.html",
+         "hari-kiamat-black-brothers.html",
+         "berhubungan-ketik-hamil-amankah.html",
+         "mari-pulang.html",
+         "banshee-dan-kolom-search.html",
+         "pulang-tenggo.html",
+         "teknik-mengelola-uang.html",
+         "daripada-kompetisi-mending-kolaborasi.html",
+         "09022012.html",
+         "kita-bisa.html",
+         "kita-belum-merdeka.html",
+         "10-nasihat-hasan-al-banna.html",
+         "kumpulan-podcast-cerita-anak.html",
+         "2752.html",
+         "tantangan-ux.html",
+         "buat-buku-gunakan-mediawiki-dan-mwlib.html",
+         "salak-syubhat.html"
+      ]
+   }
+}

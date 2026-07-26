@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swiss Army Si Tukang Debug &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<article>
+<h1>Swiss Army Si Tukang Debug</h1>
+<p class="meta"><time datetime="2014-03-07">2014-03-07</time> &middot; <a href="category-software.html">Software</a></p>
+<p><blockquote>Artikel ini ditulis untuk mereka yg merasa overkill kalau pakai xdebug di php</blockquote>
+<h2 style="text-align:justify;">Awal mula</h2>
+<p style="text-align:justify;">Selain tukang sayur, tukang gorengan, dan tukang bangunan. Ada lagi satu tukang di dunia ini yang tidak kalah penting jasanya. Dialah si tukang debug. Tukang debug kerjanya memahami alur, mencari kutu, membunuh kutu. Urutannya gak tentu sih, tergantung gimana situasi dan kondisi di negeri ini #adaApaIni. Kebetulan saya termasuk salah satunya. Perkakas tukang debug umumnya sebagai berikut :</p></p><p><blockquote>1. echo($var),
+2. var_dump($vir),
+3. print_r($vur),
+4. print "&lt;pre&gt;"; $ver;</blockquote>
+<p style="text-align:justify;">Kalau debugnya satu dua kali tentu asik-asik aja. Tapi kalau sudah berulang-ulang jadinya kesel juga. Tambah kesel ketika variabel yg dimainkan berbentuk array atau objek, berdimensi banyak, jumlahnya lebih dari satu pula. Meskipun beberapa IDE memberikan fitur snippet dengan pintasan keyboard, tetep aja kita harus pijit lebih dari satu tombol demi memunculkan sebuah fungsi untuk nge-debug<!--more-->.</p>
+Contoh kasus variabel berikut :
+https://gist.github.com/brain90/9404016</p><p>Andai <code>$tempatWisata</code> kita debug dengan print_r, maka bentuk keluaran yang didapat adalah seperti ini:
+https://gist.github.com/brain90/9403960</p><p>Berantakan dan tidak manusiawi. Karena itu tukang debug umumnya langsung menggunakan perkakas tipe keempat. Fungsi debugnya ditambahkan bumbu "&lt;pre&gt;" agar keluaran tampak rapih. Kira-kira format keluarannya menjadi seperti ini :
+https://gist.github.com/brain90/9404944
+<p style="text-align:justify;">Sekilas memang rapih, namun panjangnya nauzubilah. Bom waktu akan meledak bila variabel yg didebug lebih dari satu. Misalnya ikut pula teman-temannya yg bernama $tempatBersejarah, $tempatHoror, $tempatMangkal, dan tempat-tempat lainnya. Bola mata dan telunjuk harus kerja ekstra keras agar bisa bertemu dengan konten yang diinginkan. Apalagi kalau pakai var_dump - sebaiknya alat ini tidak perlu kita bahas mengingat format keluarannya setara bahasa alay. Sama-sama menguras energi.</p></p><p><h2>Kint</h2>
+Berawal dari etalase trending repo di github. Bertemulah saya dengan barang antik ini. Oke, sekarang gimana kalau fungsi debug yang acak bin kadul di atas kita pangkas menjadi seperti ini :
+<blockquote><code>d($tempatWisata)</code></blockquote>
+Dan keluarannya kita percantik jadi seperti ini :</p><p><a href="http://gibrain.wordpress.com/wp-content/uploads/2014/03/2014-03-06-19-48-18.png"><img class="wp-image-2174 alignnone" src="http://gibrain.wordpress.com/wp-content/uploads/2014/03/2014-03-06-19-48-18.png" alt="KintDebug" width="377" height="214" /></a>
+<p style="text-align:justify;">Ya ya, saya tahu anda juga takjub. Sama seperti saya waktu kali pertama melihatnya. Keluaran debugnya rapih banget, udah gitu dibuat model matriks sesuai dimensi dan elemennya masing-masing. Tiap parent elemen bisa dibuka tutup dengan fleksibel. Jadi seberapa pun panjang elemen mata akan tetap nyaman membacanya di layar.</p>
+<p style="text-align:justify;">Terima kasih kepada <a href="http://raveren.github.io/kint/">Kint</a>. Karenanya kehidupan tukang debug menjadi lebih baik. Kint ini juga mudah dirakit. Cukup letakkan foldernya di tempat strategis, kemudian buatlah .htaccess di root aplikasi dengan isi seperti ini:</p>
+<code># Kint PHP Debugger<sup>[1]</sup>
+php_value auto_prepend_file "/path/ke/direktori/Kint/Kint.class.php"
+</code>
+Selesai. Untuk memulai debug, cukup panggil salah satu function di bawah ini :</p><p><code>* Tampilkan hasil debug, lanjutkan eksekusi baris berikutnya
+d($var) atau d($var1, $var2, $var3, dst);</code></p><p><code>* Tampilkan hasil debug lalu hentikan program.
+dd($var) atau dd($var1, $var2, $var3).</code></p><p><code>* Tampilkan hasil debug dalam format plain text tanpa collapse button.
+sd($var) atau sd($var1, $var2, $var3).</code></p><p>Sesederhana itu.
+<h2 style="text-align:justify;">Kesimpulan</h2>
+<p style="text-align:justify;">Format tradisional nomer empat memakan hingga 25 karakter di luar nama variabel. Andai variabel yang kita  debug rata-rata 5 karakter, dan jumlahnya ada 3. Maka editor kita akan dikotori dengan (25 + 5) * 3. 90 karakter. Nilai yang besar untuk sebuah pekerjaan yang harus dilakukan berulang setiap hari.</p>
+<p style="text-align:justify;">Untuk kasus serupa, Kint hanya butuh (3 + 5) * 3. 24 karakter saja. Lebih ringkes hingga 1/3 nya. Bagi saya, Kint sangat menghemat energi saat pembacaan baris kode.</p>
+<p style="text-align:justify;">Sebenernya masih banyak lagi fitur yg bisa dimanfaatkan dari si Kint Ini. Tapi untuk <em>self defence </em>fitur <code>d</code>, <code>dd</code>, dan <code>sd</code> sudah sangat memadai. Demikianlah spek singkat swiss army si tukang debug. Semoga menambah produktifitas orang-orang yang berprofesi sama.</p>
+<span style="font-size:10px;">[1] Baris ini adalah direktif agar si php otomatis menyisipkan berkas tertentu sebelum eksekusi halaman dijalankan.</span></p>
+
+</article>
+<p><a href="index.html">&larr; Back to index</a></p>
+
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
+
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,211 +1,290 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0">
-    <title>Quran memorize calculator</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <style>
-        div[id^="juz"] {
-            height: 300px;
-            /* width: 380px; */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home &middot; Gibrain Blogs</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--border:#e5e5e5;--card:#f7f7f7}
+html.dark{--bg:#121212;--fg:#e8e8e8;--muted:#a0a0a0;--accent:#60a5fa;--border:#2a2a2a;--card:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .2s,color .2s}
+a{color:var(--accent)}
+header.site-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+header.site-header .brand h1{margin:0;font-size:1.5rem}
+header.site-header .brand p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem;font-style:italic}
+#theme-toggle{cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:999px;padding:.5rem .9rem;font-size:.9rem}
+.wrap{max-width:1100px;margin:auto;padding:1.5rem}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.content{flex:3;min-width:0}
+.sidebar{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.sidebar ul{list-style:none;padding-left:0}
+.sidebar li{margin-bottom:.5rem}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+li{margin-bottom:.4rem}
+@media (max-width:700px){.layout{flex-direction:column}.sidebar{width:100%}}
+</style>
 </head>
-
-
 <body>
+<header class="site-header">
+<div class="brand">
+<h1><a href="index.html" style="text-decoration:none;color:inherit">Gibrain Blogs</a></h1>
+<p>Semua hanya persepsi</p>
+</div>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9788;/&#9789;</button>
+</header>
+<div class="wrap">
+<div class="layout">
+<div class="content">
+<h1>Latest Posts</h1>
+<ul>
+<li><a href="asyiknya-competitive-programming.html">Asyiknya Competitive Programming</a> <small>2026-07-09</small></li>
+<li><a href="membiasakan-yang-benar.html">Membiasakan yang benar</a> <small>2026-07-09</small></li>
+<li><a href="ai-dibatas-transisi.html">AI Dibatas Transisi</a> <small>2026-07-06</small></li>
+<li><a href="nikmat-anak-it.html">Nikmat Anak IT</a> <small>2026-07-01</small></li>
+<li><a href="1-infinity.html">1 : Infinity</a> <small>2026-06-29</small></li>
+<li><a href="antarmuka-ideal.html">Antarmuka Ideal</a> <small>2026-06-24</small></li>
+<li><a href="zen-of-python.html">Zen Of Python</a> <small>2026-06-24</small></li>
+<li><a href="kesabaran-level-nabi.html">Kesabaran Level Nabi</a> <small>2026-06-20</small></li>
+<li><a href="dialog-tuhan.html">Dialog Tuhan</a> <small>2026-06-12</small></li>
+<li><a href="tips-agentic-coding.html">TIPS: Agentic Coding</a> <small>2026-05-28</small></li>
+<li><a href="perintis-vs-pewaris.html">Perintis vs Pewaris</a> <small>2026-05-28</small></li>
+<li><a href="refactor-ala-agent.html">TIL: Refactor Ala Agent</a> <small>2026-05-23</small></li>
+<li><a href="defensif-pada-sistem.html">Defensif pada sistem</a> <small>2026-04-18</small></li>
+<li><a href="digulung-ai.html">Digulung AI ?</a> <small>2026-03-07</small></li>
+<li><a href="ilmu.html">Ilmu</a> <small>2026-02-04</small></li>
+<li><a href="enjoy-suffering.html">Enjoy Suffering</a> <small>2026-01-29</small></li>
+<li><a href="menerka-maksud-tuhan-2-2.html">Menerka maksud tuhan #2</a> <small>2026-01-26</small></li>
+<li><a href="kedalaman.html">Kedalaman</a> <small>2026-01-23</small></li>
+<li><a href="kasihan.html">Kasihan</a> <small>2026-01-20</small></li>
+<li><a href="complexity-simplicity.html">Complexity. Simplicity.</a> <small>2026-01-20</small></li>
+<li><a href="riset.html">Riset</a> <small>2026-01-16</small></li>
+<li><a href="susah-jadi-pedagang.html">Susah jadi pedagang</a> <small>2026-01-15</small></li>
+<li><a href="high-paradox-tolerance.html">High paradox tolerance</a> <small>2026-01-04</small></li>
+<li><a href="satanic-technique.html">Satanic Technique</a> <small>2025-12-30</small></li>
+<li><a href="why-you-should-open-your-source-code.html">Why you should open your source code</a> <small>2025-12-30</small></li>
+<li><a href="bareskrim-konfirmasi-telah-tangkap-enam-tersangka-peretasan-bank-jakarta-rp-200-miliar.html">Bareskrim Konfirmasi Telah Tangkap Enam Tersangka Peretasan Bank Jakarta Rp 200 Miliar</a> <small>2025-12-30</small></li>
+<li><a href="good-vs-bad-programmer.html">Good vs Bad Programmer</a> <small>2025-12-28</small></li>
+<li><a href="kolaborasi-vs-kompetisi.html">Kolaborasi vs Kompetisi</a> <small>2025-12-27</small></li>
+<li><a href="3-tipe-orang.html">3 Tipe Orang</a> <small>2025-10-25</small></li>
+<li><a href="ide-trivia-game.html">Ide Trivia Game</a> <small>2025-09-23</small></li>
+<li><a href="koleksi-jazz-fusion-indonesia.html">Koleksi Jazz Fusion Indonesia</a> <small>2025-09-20</small></li>
+<li><a href="the-real-richness.html">The Real Richness</a> <small>2025-09-18</small></li>
+<li><a href="islam-otomasi.html">Islam Dan Otomasi</a> <small>2025-09-02</small></li>
+<li><a href="siapa-temennya.html">Siapa Temennya.</a> <small>2025-09-01</small></li>
+<li><a href="til-sukses-mengajar.html">TIL: Sukses Mengajar</a> <small>2025-07-10</small></li>
+<li><a href="fix-menu-windows-10-tidak-bisa-dibuka.html">Menu Windows 10 Tidak Bisa Dibuka</a> <small>2025-07-07</small></li>
+<li><a href="metrics.html">Metrics</a> <small>2025-07-02</small></li>
+<li><a href="mnemonic-semua-negara-di-afrika.html">Mnemonic. Negara Di Afrika.</a> <small>2025-05-24</small></li>
+<li><a href="data-wrangling-with-postgres-duckdb.html">Data Wrangling with postgres &amp;amp; duckdb</a> <small>2025-05-16</small></li>
+<li><a href="empat-prinsip.html">Empat Prinsip</a> <small>2025-05-10</small></li>
+<li><a href="agama-dan-kemanusiaan.html">Agama dan Kemanusiaan</a> <small>2025-05-08</small></li>
+<li><a href="chess-principles.html">Chess principles</a> <small>2025-05-01</small></li>
+<li><a href="jalan-terpuji.html">Jalan Terpuji</a> <small>2025-04-08</small></li>
+<li><a href="answer-to-disrespect.html">Answer To Disrespect</a> <small>2025-03-20</small></li>
+<li><a href="zero-tolerance-faults.html">Zero Tolerance Faults</a> <small>2025-02-10</small></li>
+<li><a href="kapan-jsonb-kapan-harus-rows.html">Kapan jsonb, kapan harus rows</a> <small>2025-01-07</small></li>
+<li><a href="orang-kota-memang-munafik.html">Orang Kota Memang Munafik</a> <small>2025-01-03</small></li>
+<li><a href="jabatan-bukan-tempat-belajar.html">Jabatan Bukan Tempat Belajar</a> <small>2024-12-04</small></li>
+<li><a href="tidak-pernah-puas.html">Tidak pernah puas</a> <small>2024-11-28</small></li>
+<li><a href="learning-paradox.html">Learning paradox</a> <small>2024-11-21</small></li>
+<li><a href="why-no-one-reads-full-articles-anymore.html">Why No One Reads Full Articles Anymore</a> <small>2024-11-18</small></li>
+<li><a href="feynman-technique-for-learning.html">Feynman Technique for Learning</a> <small>2024-11-16</small></li>
+<li><a href="critical-thinking-principal.html">Critical Thinking Principal</a> <small>2024-11-16</small></li>
+<li><a href="list-lomba.html">Berlomba-lomba</a> <small>2024-11-12</small></li>
+<li><a href="sedekahnya-anak-it.html">Sedekahnya Anak IT</a> <small>2024-11-12</small></li>
+<li><a href="tergantung-yang-diinves.html">Tergantung yang diinves</a> <small>2024-11-05</small></li>
+<li><a href="kecerdasan-finansial.html">Kecerdasan Finansial</a> <small>2024-10-24</small></li>
+<li><a href="tidak-ada-karya-useless.html">Tidak ada karya useless</a> <small>2024-10-20</small></li>
+<li><a href="memperbaiki-certbot-ngadat.html">Memperbaiki certbot ngadat</a> <small>2024-07-02</small></li>
+<li><a href="simulasi.html">Simulasi</a> <small>2024-06-19</small></li>
+<li><a href="umar-bin-abdul-aziz.html">Umar Bin Abdul Aziz</a> <small>2024-06-13</small></li>
+<li><a href="andai-khalifah-masih-hidup.html">Andai Khalifah Masih Hidup</a> <small>2024-06-13</small></li>
+<li><a href="malih-dan-mamat-ngobrol-kehidupan.html">Malih dan Mamat. Ngobrol Kehidupan.</a> <small>2024-06-02</small></li>
+<li><a href="menunggu-ditulis-sejarah-2.html">Menunggu Ditulis Sejarah</a> <small>2024-06-02</small></li>
+<li><a href="kalau-ada-opsi-pilih-yang-termudah.html">Pilih yang termudah.</a> <small>2024-06-02</small></li>
+<li><a href="pandawara.html">Pandawara</a> <small>2024-05-27</small></li>
+<li><a href="bjir.html">Bjir !</a> <small>2024-05-27</small></li>
+<li><a href="musik-haram.html">Musik Haram</a> <small>2024-05-25</small></li>
+<li><a href="paradoks-maksimal.html">Paradoks Maksimal</a> <small>2024-05-20</small></li>
+<li><a href="kepinteran-sebuah-homonim.html">Kepinteran. Sebuah Homonim.</a> <small>2024-04-25</small></li>
+<li><a href="semua-dari-pikiran.html">Semua dari pikiran</a> <small>2023-12-30</small></li>
+<li><a href="doubt-vs-failure.html">Doubt vs Failure</a> <small>2023-12-06</small></li>
+<li><a href="ngobrol-fisika-sama-bocil.html">Ngobrol fisika sama bocil.</a> <small>2023-08-08</small></li>
+<li><a href="starting-a-company.html">Starting a company</a> <small>2023-07-13</small></li>
+<li><a href="tetaplah-berguna.html">Tetaplah Berguna</a> <small>2023-06-21</small></li>
+<li><a href="hidup-seperti-main-game.html">Hidup seperti main game</a> <small>2023-04-01</small></li>
+<li><a href="kenapa-ya-anatomi-tubuh-harus-begitu.html">Kenapa ya, tubuh harus begitu ?</a> <small>2023-03-22</small></li>
+<li><a href="pedagogy-of-the-oppressed.html">Pedagogy of the Oppressed</a> <small>2023-03-18</small></li>
+<li><a href="produk-vs-sales-girl.html">Produk vs Sales Girl</a> <small>2022-08-25</small></li>
+<li><a href="messaging-systems-dongeng-bocil-1.html">Messaging systems. Dongeng Bocil #1.</a> <small>2022-08-05</small></li>
+<li><a href="ironi-bpjs.html">Ironi BPJS</a> <small>2022-07-22</small></li>
+<li><a href="fokus-ke-produk-bukan-pencitraan.html">Fokus ke produk. Bukan pencitraan.</a> <small>2022-06-16</small></li>
+<li><a href="ciri-sekolah-bagus.html">Ciri sekolah bagus</a> <small>2022-06-11</small></li>
+<li><a href="return-early.html">Return Early</a> <small>2022-04-23</small></li>
+<li><a href="turbo-kopi-paste-cukup-4-keystroke.html">Turbo kopi paste. Cukup 4 keystroke !</a> <small>2022-03-28</small></li>
+<li><a href="gara-gara-shod-dan-sa.html">Gara gara shod dan sa</a> <small>2022-01-10</small></li>
+<li><a href="how-to-rsync-with-file-list-and-ssh.html">How to rsync with file list and ssh</a> <small>2021-12-19</small></li>
+<li><a href="cara-instan-mengobati-masuk-angin.html">Cara instan mengobati masuk angin</a> <small>2021-11-07</small></li>
+<li><a href="gerbong-neraka-bagian-1.html">Gerbong Neraka.</a> <small>2021-10-15</small></li>
+<li><a href="akhlaknya-rusak.html">Akhlaknya Rusak</a> <small>2021-09-10</small></li>
+<li><a href="buktikan-dulu-asumsi.html">Buktikan dulu asumsi</a> <small>2021-08-10</small></li>
+<li><a href="koleksi-bugs.html">Koleksi bugs</a> <small>2021-08-09</small></li>
+<li><a href="integrasi-sistem-dengan-postgres-foreign-data-wrapper.html">Integrasi Sistem Dengan Postgres Foreign Data Wrapper</a> <small>2021-06-21</small></li>
+<li><a href="saldo-nasabah-bank-mandiri-berubah-90-persen-kembalikan-uang.html">Saldo Nasabah Bank Mandiri Berubah, 90 Persen Kembalikan Uang</a> <small>2021-06-01</small></li>
+<li><a href="suka-suka-tuhan.html">Suka suka tuhan</a> <small>2021-05-24</small></li>
+<li><a href="things-schools-should-teach.html">Things schools should teach</a> <small>2021-05-10</small></li>
+<li><a href="good-education.html">Good Education</a> <small>2021-04-06</small></li>
+<li><a href="daripada-kompetisi-mending-kolaborasi.html">Daripada kompetisi mending kolaborasi</a> <small>2021-03-31</small></li>
+<li><a href="kepingin-gundam.html">Kepingin Gundam</a> <small>2021-02-23</small></li>
+<li><a href="selalu-ngerasa-kurang.html">Selalu ngerasa kurang</a> <small>2021-02-23</small></li>
+<li><a href="menerka-maksud-tuhan-1.html">Menerka maksud tuhan #1</a> <small>2021-02-16</small></li>
+<li><a href="al-hikam-63.html">Al Hikam #63</a> <small>2020-11-09</small></li>
+<li><a href="tutorial-problem-solving.html">Tutorial problem solving</a> <small>2020-10-25</small></li>
+<li><a href="lagu-tentang-tempat-indonesia.html">Lagu tentang tempat (Indonesia)</a> <small>2020-10-17</small></li>
+<li><a href="vim-map-multiple-command.html">Vim: Map multiple command</a> <small>2020-09-18</small></li>
+<li><a href="trotoar-semanggi-2004.html">Trotoar semanggi 2004</a> <small>2020-08-30</small></li>
+<li><a href="peta-kopi-indonesia.html">Peta Kopi Indonesia</a> <small>2020-06-24</small></li>
+<li><a href="asynchronous-email-sending-using-bash.html">Async Email Using PHP &amp;amp; Bash</a> <small>2020-03-30</small></li>
+<li><a href="tuhan-vs-client.html">Tuhan Vs Client</a> <small>2019-11-19</small></li>
+<li><a href="reading-vs-writing-ratio.html">Reading vs Writing Ratio</a> <small>2019-08-09</small></li>
+<li><a href="harga-development-software.html">Harga Development Software</a> <small>2019-06-19</small></li>
+<li><a href="tsbs-april-it-crash-leads-to-107m-loss.html">TSB’s April IT crash leads to £107m loss</a> <small>2018-08-03</small></li>
+<li><a href="hidup-bahagia-dengan-minimalism.html">Hidup Bahagia ?. Hidup Minimalis.</a> <small>2018-05-30</small></li>
+<li><a href="3139.html"> </a> <small>2018-05-29</small></li>
+<li><a href="mengasah-otak-untuk-memecahkan-masalah.html">Mengasah Otak untuk Memecahkan Masalah</a> <small>2018-04-15</small></li>
+<li><a href="desain-alam-masa-depan-rekayasa.html">Desain Alam…. Masa depan Rekayasa!!</a> <small>2018-02-22</small></li>
+<li><a href="mengatasi-blocking-port-ssh-telkom-speedy.html">Mengatasi "blocking port ssh" telkom speedy</a> <small>2018-02-20</small></li>
+<li><a href="produk-vs-proyek.html">Produk vs Proyek</a> <small>2018-02-13</small></li>
+<li><a href="2-karyawan-bank-mandiri-didakwa-retas-sistem-dan-gelapkan-uang.html">2 Karyawan Bank Mandiri didakwa retas sistem dan gelapkan uang</a> <small>2017-10-08</small></li>
+<li><a href="3102.html"> </a> <small>2017-01-08</small></li>
+<li><a href="keep-it-simple-stupid.html">Keep it simple, stupid!</a> <small>2016-10-11</small></li>
+<li><a href="ringkasan-pengurusan-jenazah.html">Ringkasan Pengurusan Jenazah</a> <small>2016-09-05</small></li>
+<li><a href="5-hal-yang-harus-disegerakan.html">5 hal yang harus disegerakan</a> <small>2016-06-07</small></li>
+<li><a href="gaya-hidup-yang-keliru.html">Gaya hidup yang keliru</a> <small>2016-05-19</small></li>
+<li><a href="bali-green-school.html">Bali Green School</a> <small>2016-05-06</small></li>
+<li><a href="kambing-ui.html">Kambing, Memang Tiada Duanya</a> <small>2016-04-30</small></li>
+<li><a href="hitler-implements-sap.html">Hitler Implements SAP</a> <small>2016-04-30</small></li>
+<li><a href="touching-the-heart-with-native-languange.html">Banyak Bahasa, Banyak Massa</a> <small>2016-04-19</small></li>
+<li><a href="teknologi-di-zaman-batu.html">Teknologi Di Zaman Batu</a> <small>2016-04-16</small></li>
+<li><a href="cockroach-theory.html">Cockroach Theory</a> <small>2016-03-29</small></li>
+<li><a href="seven-aspects-of-our-culture.html">Kultur Development Di Netflix</a> <small>2016-03-10</small></li>
+<li><a href="ssh-with-local-aliases.html">SSH With Local Aliases</a> <small>2016-02-25</small></li>
+<li><a href="2752.html">Favoritos</a> <small>2016-01-02</small></li>
+<li><a href="nasib-sysadmin.html">Perspektif IT</a> <small>2015-11-10</small></li>
+<li><a href="under-the-same-sun.html">Under The Same Sun</a> <small>2015-09-02</small></li>
+<li><a href="2732.html"> </a> <small>2015-08-28</small></li>
+<li><a href="otomasi-backup-postgres-magic-bash.html">Otomasi Backup Postgres. Magic Bash.</a> <small>2015-08-27</small></li>
+<li><a href="blowin-in-the-wind.html">Blowin' In The Wind.</a> <small>2015-08-21</small></li>
+<li><a href="ketenangan.html">Ketenangan</a> <small>2015-08-21</small></li>
+<li><a href="bekerja-dengan-elon-musk.html">Bekerja dengan Elon Musk</a> <small>2015-08-21</small></li>
+<li><a href="ask-the-right-question.html">Ask the right question</a> <small>2015-08-21</small></li>
+<li><a href="nasabah-bank-mandiri-kaget-rekeningnya-jadi-100-triliun.html">Nasabah Bank Mandiri Kaget Rekeningnya jadi 100 Triliun</a> <small>2015-08-08</small></li>
+<li><a href="watch.html">Watch</a> <small>2015-07-30</small></li>
+<li><a href="genius-zone.html">Genius Zone</a> <small>2015-07-28</small></li>
+<li><a href="atm-mandiri-medan-labuhan-error-tarik-tunai-rp-1-juta-keluar-rp-2-juta.html">ATM Mandiri Medan Labuhan Error, Tarik Tunai Rp 1 Juta Keluar Rp 2 Juta</a> <small>2015-07-07</small></li>
+<li><a href="uang-nasabah-bank-nagari-raib-ojk-lakukan-penyelidikan.html">Uang Nasabah Bank Nagari Raib, OJK Lakukan Penyelidikan</a> <small>2015-06-01</small></li>
+<li><a href="8-alasan-saya-suka-linux.html">8 alasan saya suka linux</a> <small>2015-03-16</small></li>
+<li><a href="commit-messages-bukanlah-sampah-kata-kata.html">Commit messages bukanlah sampah kata-kata.</a> <small>2015-03-15</small></li>
+<li><a href="insanity.html">Ketololan</a> <small>2015-03-12</small></li>
+<li><a href="how-thomas-edison-suceeded.html">How Thomas Edison Suceeded</a> <small>2015-03-10</small></li>
+<li><a href="komedi-tunggal-ala-cak-nun.html">Lawak Tedjo dan Cak Nun</a> <small>2015-02-18</small></li>
+<li><a href="zappos-core-values.html">Zappos Core Values</a> <small>2015-02-16</small></li>
+<li><a href="jakarta-petang-ini.html">Kehidupan</a> <small>2015-02-02</small></li>
+<li><a href="selamat-sore-jakarta.html">Sore Jakarta...</a> <small>2015-01-29</small></li>
+<li><a href="ekspedisi-curug-luhur.html">Ekspedisi Curug Luhur</a> <small>2015-01-03</small></li>
+<li><a href="mobile-banking-bca-error-ini-penampakannya.html">Mobile Banking BCA Error, Ini Penampakannya</a> <small>2014-12-10</small></li>
+<li><a href="ridwan-kamil.html">Ridwan Kamil</a> <small>2014-10-19</small></li>
+<li><a href="dahlan-iskan.html">Dahlan Iskan</a> <small>2014-10-19</small></li>
+<li><a href="desain-ruang-kerja-2.html">Desain Ruang Kerja</a> <small>2014-10-13</small></li>
+<li><a href="tewas.html">Tewas</a> <small>2014-09-14</small></li>
+<li><a href="regex-ip-address.html">Regex IP Address</a> <small>2014-09-09</small></li>
+<li><a href="merona.html">Merona</a> <small>2014-09-05</small></li>
+<li><a href="garang-asem-solo.html">Garang Asem</a> <small>2014-08-13</small></li>
+<li><a href="kupat-tahu-solo.html">Kupat</a> <small>2014-08-13</small></li>
+<li><a href="swiss-army-si-tukang-debug.html">Swiss Army Si Tukang Debug</a> <small>2014-03-07</small></li>
+<li><a href="gara-gara-password.html">Gara-gara password</a> <small>2014-01-13</small></li>
+<li><a href="ssh-tanpa-password.html">ssh tanpa password</a> <small>2013-12-23</small></li>
+<li><a href="bogor-tahun-1900.html">Bogor Tahun 1900</a> <small>2013-12-04</small></li>
+<li><a href="koperasi-sembako-per-komplek.html">Koperasi Sembako Per Komplek</a> <small>2013-12-02</small></li>
+<li><a href="ngeblog-dari-vim.html">Ngeblog dari Vim</a> <small>2013-10-13</small></li>
+<li><a href="hukum-linus.html">Hukum Linus</a> <small>2013-10-11</small></li>
+<li><a href="puasa-dan-kemakmuran.html">Puasa dan Kemakmuran</a> <small>2013-09-10</small></li>
+<li><a href="brasero-burner-yg-keder.html">Brasero Burner Yg Keder</a> <small>2013-09-09</small></li>
+<li><a href="copy-file-di-linux-dengan-cepat.html">Copy file di linux dengan cepat</a> <small>2013-04-24</small></li>
+<li><a href="pulau-pari-2011.html">Pulau Pari 2011</a> <small>2013-01-17</small></li>
+<li><a href="depok-jasinga-2011.html">Depok - Jasinga (2011)</a> <small>2013-01-17</small></li>
+<li><a href="linux-find-in-files-recursively.html">Linux find in files recursively</a> <small>2012-12-11</small></li>
+<li><a href="20-kick-ass-programming-quotes.html">20 Kick ass programming quotes</a> <small>2012-11-09</small></li>
+<li><a href="resensi-buku-nps.html">Resensi Buku NPS</a> <small>2012-05-11</small></li>
+<li><a href="kita-belum-merdeka.html">Kita Belum Merdeka !</a> <small>2012-04-16</small></li>
+<li><a href="teknik-mengelola-uang.html">Teknik Mengelola Uang</a> <small>2012-04-10</small></li>
+<li><a href="hari-kiamat-black-brothers.html">Hari Kiamat (Black Brothers)</a> <small>2012-04-09</small></li>
+<li><a href="berhubungan-ketik-hamil-amankah.html">Berhubungan ketika hamil ? (amankah)</a> <small>2012-04-05</small></li>
+<li><a href="kumpulan-podcast-cerita-anak.html">Mendongeng &amp;amp; Kumpulan Podcast Cerita Anak</a> <small>2012-04-05</small></li>
+<li><a href="syubhat.html">Syubhat</a> <small>2012-04-04</small></li>
+<li><a href="keliling-neraka-syurga.html">Keliling Neraka &amp;amp; Syurga</a> <small>2012-04-04</small></li>
+<li><a href="yang-tuhan-benci.html">Yang Tuhan Benci</a> <small>2012-04-04</small></li>
+<li><a href="walau-dengan-sebutir-kurma.html">Walau dengan sebutir kurma</a> <small>2012-04-04</small></li>
+<li><a href="the-science-of-shalat-cuplikan-bagian-tahajud.html">The Science Of Shalat (Cuplikan bagian tahajud)</a> <small>2012-04-01</small></li>
+<li><a href="kiat-menulis-enak-ala-dahlan-iskan.html">Kiat menulis enak ala Dahlan Iskan</a> <small>2012-03-28</small></li>
+<li><a href="kita-bisa.html">Kita Bisa !</a> <small>2012-03-28</small></li>
+<li><a href="tantangan-ux.html">Tantangan Ux</a> <small>2012-03-13</small></li>
+<li><a href="usg-4-dimensi-murah-di-jakarta-dr-bob-ichsan-masri.html">USG 4 Dimensi Murah Di Jakarta</a> <small>2012-02-21</small></li>
+<li><a href="10-nasihat-hasan-al-banna.html">10 Nasihat Hasan Al-Banna</a> <small>2012-02-20</small></li>
+<li><a href="banshee-dan-kolom-search.html">Banshee Dan Kolom Search</a> <small>2012-02-15</small></li>
+<li><a href="09022012.html">Terik mentari dzuhur itu</a> <small>2012-02-10</small></li>
+<li><a href="should-i-give-up.html">Should i give up ?</a> <small>2012-01-31</small></li>
+<li><a href="mari-pulang.html">Mari pulang...</a> <small>2012-01-25</small></li>
+<li><a href="pulang-tenggo.html">Pulang Tenggo</a> <small>2012-01-20</small></li>
+<li><a href="buat-buku-gunakan-mediawiki-dan-mwlib.html">Buat Buku ?, Gunakan MediaWiki dan MwLib</a> <small>2012-01-08</small></li>
+<li><a href="salak-syubhat.html">Salak Syubhat</a> <small>2012-01-05</small></li>
+</ul>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div id="juz1"></div>
-        </div>
-        <div class="col-md-4">
-            <div id="juz2"></div>
-        </div>
+</div>
+<aside class="sidebar">
+<h2>Categories</h2>
+<ul>
+<li><a href="category-kehidupan.html">Kehidupan</a> (111)</li>
+<li><a href="category-software.html">Software</a> (18)</li>
+<li><a href="category-uncategorized.html">Uncategorized</a> (17)</li>
+<li><a href="category-quote-of-the-day.html">Quote Of The Day</a> (12)</li>
+<li><a href="category-koleksi-bugs.html">Koleksi Bugs</a> (9)</li>
+<li><a href="category-inspiratif.html">Inspiratif</a> (6)</li>
+<li><a href="category-jalan-jalan.html">Jalan-Jalan</a> (3)</li>
+<li><a href="category-dev-culture.html">Dev Culture</a> (3)</li>
+<li><a href="category-produktifitas.html">Produktifitas</a> (3)</li>
+<li><a href="category-dongeng-bocil.html">Dongeng Bocil</a> (2)</li>
+<li><a href="category-lyrics-of-the-day.html">Lyrics Of The Day</a> (2)</li>
+<li><a href="category-ekonomi.html">Ekonomi</a> (2)</li>
+<li><a href="category-joke-of-the-day.html">Joke Of The Day</a> (2)</li>
+<li><a href="category-kuliner.html">Kuliner</a> (2)</li>
+<li><a href="category-filosofi.html">Filosofi</a> (1)</li>
+<li><a href="category-mnemonic.html">Mnemonic</a> (1)</li>
+<li><a href="category-akhlak-nabi.html">Akhlak Nabi</a> (1)</li>
+<li><a href="category-sustainable-development.html">Sustainable Development</a> (1)</li>
+<li><a href="category-ngoding.html">Ngoding</a> (1)</li>
+<li><a href="category-lesson-learned.html">Lesson Learned</a> (1)</li>
+<li><a href="category-review-buku.html">Review Buku</a> (1)</li>
+<li><a href="category-kenapa-ya.html">Kenapa ya ?</a> (1)</li>
+<li><a href="category-kitab-al-hikam.html">Kitab Al Hikam</a> (1)</li>
+</ul>
+</aside>
 
-        <div class="col-md-4">
-            <div id="juz3"></div>
-        </div>
-    </div>
-    <div style="margin-bottom: 25px;"></div>
-    <div class="row">
-        <div class="col-md-4">
-            <div id="juz4"></div>
-        </div>
-        <div class="col-md-4">
-            <div id="juz5"></div>
-        </div>
-
-        <div class="col-md-4">
-            <div id="juz6"></div>
-        </div>
-    </div>
-
-
-
-    <!--
-    <script>
-        // First, let's make the colors transparent
-        Highcharts.setOptions({
-            colors: Highcharts.map(Highcharts.getOptions().colors, function(color) {
-                return Highcharts.color(color)
-                    .setOpacity(0.5)
-                    .get('rgba');
-            })
-        });
-
-        Highcharts.chart('juz1', {
-
-            credits: {
-                enabled: false
-            },
-            chart: {
-                type: 'column',
-                zoomType: 'xy',
-            },
-            title: {
-                text: 'Bagian 1'
-            },
-            subtitle: {
-                text: 'Juz 1 s.d Juz 5'
-            },
-            xAxis: {
-                /*
-                categories: ['Al-Fatihah', 'Al-Baqarah', 'Ali Imran', 'An-Nisa', 'Al-Maidah', 'Al-Anam', 'Al-Araf', 'Al-Anfal', 'At-Taubah', 'Yunus', 'Hud', 'Yusuf', 'Ar-Rad', 'Ibrahim', 'Al-Hijr', 'An-Nahl', 'Al-Isra', 'Al-Kahf', 'Maryam', 'Ta Ha', 'Al-Anbiya', 'Al-Hajj', 'Al-Muminun', 'An-Nur', 'Al-Furqan', 'Asy-Syuara', 'An-Naml', 'Al-Qasas', 'Al-Ankabut', 'Ar-Rum', 'Luqman', 'As-Sajdah', 'Al-Ahzab', 'Saba', 'Fatir', 'Ya Sin', 'As-Saffat', 'Sad', 'Az-Zumar', 'Al-Mumin', 'Fussilat', 'Asy-Syura', 'Az-Zukhruf', 'Ad-Dukhan', 'Al-Jasiyah', 'Al-Ahqaf', 'Muhammad', 'Al-Fath', 'Al-Hujurat', 'Qaf', 'Az-Zariyat', 'At-Tur', 'An-Najm', 'Al-Qamar', 'Ar-Rahman', 'Al-Waqiah', 'Al-Hadid', 'Al-Mujadilah', 'Al-Hasyr', 'Al-Mumtahanah', 'As-Saff', 'Al-Jumuah', 'Al-Munafiqun', 'At-Tagabun', 'At-Talaq', 'At-Tahrim', 'Al-Mulk', 'Al-Qalam', 'Al-Haqqah', 'Al-Maarij', 'Nuh', 'Al-Jinn', 'Al-Muzzammil', 'Al-Muddassir', 'Al-Qiyamah', 'Al-Insan', 'Al-Mursalat', 'An-Naba', 'An-Naziat', 'Abasa', 'At-Takwir', 'Al-Infitar', 'Al-Tatfif', 'Al-Insyiqaq', 'Al-Buruj', 'At-Tariq', 'Al-Ala', 'Al-Gasyiyah', 'Al-Fajr', 'Al-Balad', 'Asy-Syams', 'Al-Lail', 'Ad-Duha', 'Al-Insyirah', 'At-Tin', 'Al-Alaq', 'Al-Qadr', 'Al-Bayyinah', 'Az-Zalzalah', 'Al-Adiyat', 'Al-Qariah', 'At-Takasur', 'Al-Asr', 'Al-Humazah', 'Al-Fil', 'Quraisy', 'Al-Maun', 'Al-Kausar', 'Al-Kafirun', 'An-Nasr', 'Al-Lahab', 'Al-Ikhlas', 'Al-Falaq', 'An-Nas']
-                */
-                /*
-                                categories: [
-                                    'Al-Fatihah - Al-Baqarah 141', 'Al-Baqarah 142-252',
-                                    'Al-Baqarah 253 - Al-Imran 92', 'Al-Imran 94 - An-Nissa 23',
-                                    'Ali Imran 93 – An-Nisa 23'
-                                ]
-                                */
-                categories: ['juz 1', 'juz 2', 'juz 3', 'juz 4', 'juz 5']
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Jumlah Ayat'
-                }
-            },
-            tooltip: {
-                shared: true,
-                valueSuffix: ' ayat'
-            },
-            plotOptions: {
-                column: {
-                    grouping: false,
-                    shadow: false
-                }
-            },
-            series: [{
-                name: 'jumlah_ayat',
-                /*
-                data: [7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 112, 78, 118, 64, 77, 227, 93, 88, 69, 60, 34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 15, 21, 11, 8, 8, 19, 5, 8, 8, 11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 3, 5, 4, 5, 6],
-                */
-                data: [148, 111, 126, 131, 124],
-                pointPadding: 0
-            }, {
-                name: 'jumlah_hapal',
-                data: [7, 10, 0],
-                pointPadding: 0
-            }]
-        });
-    </script>
--->
-
-    <script>
-        var idx = {};
-        var i;
-
-        idx = {
-            1: {
-                'juz': ['juz 1', 'juz 2', 'juz 3', 'juz 4', 'juz 5'],
-                'jumlah': [148, 111, 126, 131, 124]
-            },
-            2: {
-                'juz': ['Juz 06', 'Juz 07', 'Juz 08', 'Juz 09', 'Juz 10'],
-                'jumlah': [110, 149, 142, 159, 127]
-            },
-            3: {
-                'juz': ['Juz 11', 'Juz 12', 'Juz 13', 'Juz 14', 'Juz 15'],
-                'jumlah': [151, 170, 154, 227, 185]
-            },
-            4: {
-                'juz': ['Juz 16', 'Juz 17', 'Juz 18', 'Juz 19', 'Juz 20'],
-                'jumlah': [269, 190, 202, 339, 171]
-            },
-            5: {
-                'juz': ['Juz 21', 'Juz 22', 'Juz 23', 'Juz 24', 'Juz 25'],
-                'jumlah': [178, 169, 357, 175, 246]
-            },
-            6: {
-                'juz': ['Juz 26', 'Juz 27', 'Juz 28', 'Juz 29', 'Juz 30'],
-                'jumlah': [195, 399, 137, 431, 564]
-            }
-        }
-
-        for (i = 1; i <= 6; i++) {
-
-            Highcharts.chart('juz' + i, {
-                chart: {
-                    type: 'column',
-                },
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                legend: {
-                    enabled: false
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: idx[i].juz
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                    valueSuffix: ' ayat'
-                },
-                plotOptions: {
-                    column: {
-                        grouping: false,
-                        shadow: false,
-                        dataLabels: {
-                            enabled: true
-                        },
-                        enableMouseTracking: false
-                    },
-                },
-                series: [{
-                    name: 'jumlah_ayat',
-                    data: idx[i].jumlah,
-                    pointPadding: 0
-                }, {
-                    name: 'jumlah_hapal',
-                    data: [10],
-                    pointPadding: 0
-                }]
-            });
-        }
-    </script>
-
-
-
+</div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+</script>
 </body>
-
 </html>
